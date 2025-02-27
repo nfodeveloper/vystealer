@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screen Viewer</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    #screenshotContainer {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+    #screenshotContainer img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="screenshotContainer">
+    <!-- Removed the logo -->
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const ip = urlParams.get('ip');
+
+    if (ip) {
+      const imgElement = document.createElement('img');
+      imgElement.alt = 'Screenshot';
+      const container = document.getElementById('screenshotContainer');
+
+      function updateScreenshot() {
+        imgElement.src = `/${ip}?t=${new Date().getTime()}`;
+      }
+
+      function checkConnection() {
+        fetch(`/status/${ip}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.connected) {
+              if (!container.contains(imgElement)) {
+                container.appendChild(imgElement);
+              }
+              updateScreenshot();
+              setInterval(updateScreenshot, 1000);
+            } else {
+              if (container.contains(imgElement)) {
+                container.removeChild(imgElement);
+              }
+              document.body.innerHTML = '<h1 style="color: white;">IP not connected</h1>';
+            }
+          });
+      }
+
+      checkConnection();
+      setInterval(checkConnection, 5000);
+    } else {
+      document.body.innerHTML = '<h1 style="color: white;">No IP provided</h1>';
+    }
+  </script>
+</body>
+</html>
